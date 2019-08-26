@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Lesson 09</title>
+</head>
+<body>
+    <script>
+        let str = '243,17,8,11,542';
+        
+        function setToArray (str) {
+            let arr = [];
+            let element = '';
+            for (let i = 0; i <= str.length; i++) {
+                
+                if(str[i] === ',' || i === str.length) {
+                    arr.push(element);
+                    element = '';
+                } else {
+                    element += str[i];
+                }
+            }
+            return arr;
+        }
+        
+        console.log(setToArray(str));
+        
+        
+        let notifications = [
+            {
+                date: '01/05/2019',
+                message: 'New text'
+            },
+            {
+                date: '02/03/2019',
+                message: 'Some message'
+            },
+            {
+                date: '06/21/2019',
+                message: 'Hey, you'
+            },
+            {
+                date: '01/05/2019',
+                message: 'Your text'
+            },
+            {
+                date: '04/25/2019',
+                message: 'Type smth'
+            }
+        ];
+        
+   
+        
+        function group(data) {
+            data.sort(function(a, b){
+                dateA = Date.parse(a.date);
+                dateB = Date.parse(b.date);
+
+                if (dateA > dateB) return 1;
+                if (dateA === dateB) return 0;
+                if (dateA < dateB) return -1;
+            });
+            
+            return data.reduce(function(result, element) {
+                if(!result.length || result[result.length - 1].title !== element.date) {
+                    let arr = [];
+                    arr.push(element.message);
+                    let obj = {
+                        title: element.date,
+                        items: arr
+                    };
+                    result.push(obj);
+                } else {
+                    result[result.length - 1].items.push(element.message);
+                }
+                return result;
+            },[]);
+        }
+        
+        console.log(group(notifications));
+    </script>
+</body>
+</html>
